@@ -1,3 +1,8 @@
+/* Edit this file directly on GitHub, then commit to update the allocator page.
+   repoUrl: paste your HTTPS GitHub repository URL. Leave empty to hide the link.
+   code: paste your example between the backticks. Escape literal backticks as \`
+   and literal ${ as \${ when they occur inside the example.
+*/
 window.projectContent = {
   'memory-allocator': {
     repoUrl: 'https://github.com/SAED2906/MemoryAllocator',
