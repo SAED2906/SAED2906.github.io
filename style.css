@@ -1,19 +1,19 @@
 /*
   William Marais — Tokyo Night theme
-  Palette (Tokyo Night): bg #1a1b26, surface #16161e, line #292e42,
-  text #c0caf5, text-2 #a9b1d6, muted #7982a9, accent #7aa2f7, selection #33467c.
+  Palette (Tokyo Night Storm): bg #24283b, surface #1f2335, line #3b4261,
+  text #c0caf5, text-2 #a9b1d6, muted #8a93bd, accent #7aa2f7, selection #2e3c64.
   One accent. Serif for everything you read, monospace only for code.
 */
 
 :root {
-  --bg: #1a1b26;
-  --surface: #16161e;
-  --line: #292e42;
+  --bg: #24283b;
+  --surface: #1f2335;
+  --line: #3b4261;
   --text: #c0caf5;
   --text-2: #a9b1d6;
-  --muted: #7982a9;
+  --muted: #8a93bd;
   --accent: #7aa2f7;
-  --selection: #33467c;
+  --selection: #2e3c64;
   --serif: "Literata", Georgia, "Times New Roman", serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   color-scheme: dark;
@@ -135,7 +135,7 @@ nav a[aria-current] {
 .page-head .lead, .detail-head .lead { margin-top: 16px; }
 .back { display: inline-block; margin-bottom: 36px; color: var(--muted); font-size: 16px; transition: color .15s; }
 .back:hover { color: var(--text); }
-.eyebrow { display: block; color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 10px; }
+.eyebrow { display: block; color: var(--muted); font-size: 15px; line-height: 1.5; margin-bottom: 14px; }
 .detail-head .eyebrow + h1 { margin-top: 0; }
 
 .detail-facts { display: flex; flex-wrap: wrap; gap: 20px 56px; margin-top: 36px; font-size: 17px; color: var(--text); }
@@ -159,12 +159,12 @@ a.next-project:hover > span { color: var(--accent); }
 .next-project small { margin-bottom: 4px; }
 
 /* Blog and tutorial lists */
-.blog-list { margin: 24px 0 96px; display: grid; gap: 40px; }
+.blog-list { margin: 48px 0 104px; display: grid; gap: 56px; }
 .blog-row { display: block; }
-.blog-row h2 { font-size: 22px; margin: 2px 0 6px; transition: color .15s; }
+.blog-row h2 { font-size: 22px; margin: 0 0 8px; transition: color .15s; }
 .blog-row:hover h2 { color: var(--accent); }
 .blog-row p { font-size: 17px; line-height: 1.6; }
-.blog-row .eyebrow { margin-bottom: 4px; }
+.blog-row .eyebrow { margin-bottom: 10px; }
 .draft {
   display: inline-block; margin-left: 8px; padding: 0 6px;
   border: 1px solid var(--line); border-radius: 3px;
@@ -203,6 +203,7 @@ a.next-project:hover > span { color: var(--accent); }
 .source-panel h2 { font-size: 20px; margin-bottom: 16px; }
 .source-panel .eyebrow { margin-bottom: 8px; }
 .source-panel ul { margin-bottom: 0; }
+.source-panel li:last-child { margin-bottom: 0; }
 .article .source-pending { color: var(--muted); font-size: 15px; margin-bottom: 16px; }
 .source-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .repo-button { font-size: 16px; }
@@ -234,9 +235,11 @@ a.next-project:hover > span { color: var(--accent); }
   font: 13px/1.75 var(--mono); color: var(--text-2);
 }
 .code-content code { font: inherit; }
-.article .copy-status { min-height: 22px; margin: 8px 0 0; font-size: 14px; color: var(--accent); }
+.article .copy-status { margin: 10px 0 0; font-size: 14px; line-height: 1.4; color: var(--accent); }
+.article .copy-status:empty { margin: 0; }
 .project-source h2 { font-size: 22px; margin-bottom: 16px; }
-.tutorial-code { margin-top: 20px; }
+.project-source.tutorial-code { margin-top: 24px; }
+.tutorial-article section > p + .project-source.tutorial-code { margin-top: 20px; }
 
 /* Tutorials */
 .tutorial-layout { display: block; }
@@ -246,6 +249,7 @@ a.next-project:hover > span { color: var(--accent); }
 .tutorial-toc a { color: var(--text-2); transition: color .15s; }
 .tutorial-toc a:hover { color: var(--accent); }
 .tutorial-article { margin-top: 40px; max-width: none; }
+.tutorial-article section { margin-bottom: 52px; }
 
 /* Footer */
 footer { padding-bottom: 56px; }
@@ -267,3 +271,9 @@ footer > span { display: block; padding-top: 24px; border-top: 1px solid var(--l
   html { scroll-behavior: auto; }
   * { transition: none !important; }
 }
+
+/* Project images: real screenshots, plots or output only */
+.shot { margin: 40px 0 0; }
+.shot img { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 6px; background: var(--surface); }
+.shot figcaption { margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.project-card > img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border: 1px solid var(--line); border-radius: 6px; margin-bottom: 16px; background: var(--surface); }
