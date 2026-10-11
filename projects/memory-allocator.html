@@ -1,1 +1,73 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#131116"><meta name="description" content="William Marais — software, systems and quantum computing. Explore projects and research."><title>Under the allocation · William Marais</title><link rel="icon" href="../favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../style.css"><script defer src="../app.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="../index.html"><span class="monogram">w<span>m</span>.</span><span>WILLIAM MARAIS</span></a><nav aria-label="Main navigation"><a href="../index.html" aria-current="page">Projects</a><a href="../blog.html" >Blog</a><a href="../contact.html" >Contact</a></nav><a class="header-cta" href="../contact.html">Let’s talk <span>↗</span></a></header><main id="main"><section class="detail-head" id="top"><a class="back" href="../index.html#projects">← All projects</a><div class="eyebrow">SYSTEMS / LEARNING</div><h1>Under the allocation<span>.</span></h1><p class="lead">A compact systems programming exercise exploring the mechanics behind memory allocation and deallocation. The focus is understanding ownership, tracking allocated blocks and cleanup.</p><div class="detail-facts"><div><small>STATUS</small>Learning project</div><div><small>TOOLS & TECHNOLOGIES</small>C++ / Memory management / Valgrind</div></div></section><div class="detail-art project-art memory"><svg viewBox="0 0 640 260" aria-hidden="true"><g class="gates"><rect x="70" y="95" width="55" height="70" rx="4" style="opacity:1"/><rect x="133" y="95" width="55" height="70" rx="4" style="opacity:1"/><rect x="196" y="95" width="55" height="70" rx="4" style="opacity:0.25"/><rect x="259" y="95" width="55" height="70" rx="4" style="opacity:0.25"/><rect x="322" y="95" width="55" height="70" rx="4" style="opacity:1"/><rect x="385" y="95" width="55" height="70" rx="4" style="opacity:1"/><rect x="448" y="95" width="55" height="70" rx="4" style="opacity:0.25"/><rect x="511" y="95" width="55" height="70" rx="4" style="opacity:0.25"/></g><g class="wires"><path d="M70 185H190M322 185H442"/></g></svg></div><article class="article"><section><h2>Learning objective</h2><p>Implementing allocation primitives makes normally hidden details concrete: block bookkeeping, allocation lifetime and the relationship between an address and the storage behind it.</p></section><section><h2>Validation focus</h2><p>Memory tools help reveal leaks and invalid accesses. Small programs that allocate, use and release multiple blocks provide a practical way to reason about allocator behaviour.</p></section><section><h2>Scope</h2><p>This is an educational implementation, not a production allocator. The project is intentionally small and complements broader work in C++ systems programming.</p></section></article><a class="next-project" href="evolutionary-quantum-kernels.html"><small>NEXT PROJECT</small><span>Evolving quantum kernels ↗</span></a></main><footer><a class="brand" href="../index.html">William Marais<span class="muted"> / Software & research</span></a><span>Built with curiosity. Designed with intent.</span><a href="#top" aria-label="Back to top">Back to top ↑</a></footer></body></html>
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#131116">
+    <meta name="description"
+        content="William Marais — software, systems and quantum computing. Explore projects and research.">
+    <title>Under the allocation · William Marais</title>
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="../style.css">
+    <script defer src="../app.js"></script>
+</head>
+
+<body><a class="skip" href="#main">Skip to content</a>
+    <header><a class="brand" href="../index.html"><span class="monogram">w<span>m</span>.</span><span>WILLIAM
+                MARAIS</span></a>
+        <nav aria-label="Main navigation"><a href="../index.html" aria-current="page">Projects</a><a
+                href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav><a class="header-cta"
+            href="../contact.html">Let’s talk <span>↗</span></a>
+    </header>
+    <main id="main">
+        <section class="detail-head" id="top"><a class="back" href="../index.html#projects">← All projects</a>
+            <div class="eyebrow">SYSTEMS / LEARNING</div>
+            <h1>Under the allocation<span>.</span></h1>
+            <p class="lead">A compact systems programming exercise exploring the mechanics behind memory allocation and
+                deallocation. The focus is understanding ownership, tracking allocated blocks and cleanup.</p>
+            <div class="detail-facts">
+                <div><small>STATUS</small>Learning project</div>
+                <div><small>TOOLS & TECHNOLOGIES</small>C++ / Memory management / Valgrind</div>
+            </div>
+        </section>
+        <div class="detail-art project-art memory"><svg viewBox="0 0 640 260" aria-hidden="true">
+                <g class="gates">
+                    <rect x="70" y="95" width="55" height="70" rx="4" style="opacity:1" />
+                    <rect x="133" y="95" width="55" height="70" rx="4" style="opacity:1" />
+                    <rect x="196" y="95" width="55" height="70" rx="4" style="opacity:0.25" />
+                    <rect x="259" y="95" width="55" height="70" rx="4" style="opacity:0.25" />
+                    <rect x="322" y="95" width="55" height="70" rx="4" style="opacity:1" />
+                    <rect x="385" y="95" width="55" height="70" rx="4" style="opacity:1" />
+                    <rect x="448" y="95" width="55" height="70" rx="4" style="opacity:0.25" />
+                    <rect x="511" y="95" width="55" height="70" rx="4" style="opacity:0.25" />
+                </g>
+                <g class="wires">
+                    <path d="M70 185H190M322 185H442" />
+                </g>
+            </svg></div>
+        <article class="article">
+            <section>
+                <h2>Learning objective</h2>
+                <p>Implementing allocation primitives makes normally hidden details concrete: block bookkeeping,
+                    allocation lifetime and the relationship between an address and the storage behind it.</p>
+            </section>
+            <section>
+                <h2>Validation focus</h2>
+                <p>Memory tools help reveal leaks and invalid accesses. Small programs that allocate, use and release
+                    multiple blocks provide a practical way to reason about allocator behaviour.</p>
+            </section>
+            <section>
+                <h2>Scope</h2>
+                <p>This is an educational implementation, not a production allocator. The project is intentionally small
+                    and complements broader work in C++ systems programming.</p>
+            </section>
+        </article><a class="next-project" href="evolutionary-quantum-kernels.html"><small>NEXT
+                PROJECT</small><span>Evolving quantum kernels ↗</span></a>
+    </main>
+    <footer><a class="brand" href="../index.html">William Marais<span class="muted"> / Software &
+                research</span></a><span>Built with curiosity. Designed with intent.</span><a href="#top"
+            aria-label="Back to top">Back to top ↑</a></footer>
+</body>
+
+</html>
