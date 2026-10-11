@@ -1,0 +1,174 @@
+{
+  "projects": [
+    {
+      "slug": "evolutionary-quantum-kernels",
+      "title": "Evolving quantum kernels",
+      "type": "Quantum computing",
+      "tag": "RESEARCH / MSc",
+      "year": "2026",
+      "desc": "Searching for better quantum feature maps through evolutionary algorithms.",
+      "stack": [
+        "Python",
+        "PennyLane",
+        "HierarQcal"
+      ],
+      "intro": "An MSc research project at Stellenbosch University exploring automated circuit design for quantum kernel methods. The central question is how evolutionary search can discover useful feature maps without fixing the circuit architecture in advance.",
+      "sections": [
+        [
+          "The problem",
+          "Quantum kernel methods depend on the circuit used to encode classical data. Choosing that circuit by hand restricts the search to architectures anticipated by the designer."
+        ],
+        [
+          "The approach",
+          "An evolutionary algorithm searches over circuit structures built from parameterised rotations, entangling gates and reusable motifs. Candidate kernels are evaluated through classification experiments, with attention to generalisation and computational cost."
+        ],
+        [
+          "Research direction",
+          "The work investigates fitness selection, sparse kernel evaluation and circuit structures that transfer across qubit counts. Research is ongoing; final results and reproducible experiments will be added as the work develops."
+        ]
+      ],
+      "status": "Ongoing research",
+      "art": "quantum"
+    },
+    {
+      "slug": "cpp-2d-engine",
+      "title": "A world, built from scratch",
+      "type": "Systems & graphics",
+      "tag": "ENGINEERING / C++",
+      "year": "IN DEVELOPMENT",
+      "desc": "A custom 2D engine exploring rendering, spatial systems and large worlds.",
+      "stack": [
+        "C++23",
+        "SDL3",
+        "OpenGL"
+      ],
+      "intro": "A personal engine project that brings together graphics programming and systems design. Building the underlying tools creates room to explore how a world is represented, rendered and navigated.",
+      "sections": [
+        [
+          "The challenge",
+          "Large 2D worlds demand careful decisions about memory, spatial representation and rendering work. The project explores these decisions directly through a custom C++ engine."
+        ],
+        [
+          "Technical focus",
+          "The work spans render jobs, image processing, signals, pathfinding and spatial subdivision. SDL3 provides the platform layer, with OpenGL used for rendering."
+        ],
+        [
+          "Next questions",
+          "Further development explores level of detail, tiled world storage and streaming. These are engineering directions rather than claims of completed production features."
+        ]
+      ],
+      "status": "In development",
+      "art": "terrain"
+    },
+    {
+      "slug": "riot-api-cpp",
+      "title": "Connecting to the game",
+      "type": "Developer tools",
+      "tag": "DEVELOPER TOOLS / C++",
+      "year": "2026",
+      "desc": "A C++ interface for exploring account and player data through the Riot API.",
+      "stack": [
+        "C++",
+        "REST APIs",
+        "JSON"
+      ],
+      "intro": "A C++ project focused on making API interactions straightforward from application code. The interface brings together account lookup, player identifiers and champion mastery data.",
+      "sections": [
+        [
+          "Interface design",
+          "The current interface supports account lookup by Riot ID and PUUID, alongside champion mastery requests. Related operations are grouped into namespaces to keep calling code readable."
+        ],
+        [
+          "Errors as part of the API",
+          "HTTP failures and JSON parsing errors need distinct handling. The interface exposes Riot errors with a status code, while standard exceptions handle parsing and type failures."
+        ],
+        [
+          "Project scope",
+          "The project is a personal learning and portfolio effort. It is not affiliated with or endorsed by Riot Games. Source links and usage documentation can be added when the repository is ready."
+        ]
+      ],
+      "status": "In development",
+      "art": "network"
+    },
+    {
+      "slug": "memory-allocator",
+      "title": "Under the allocation",
+      "type": "Systems & graphics",
+      "tag": "SYSTEMS / LEARNING",
+      "year": "2026",
+      "desc": "Exploring memory allocation and cleanup by implementing the fundamentals.",
+      "stack": [
+        "C++",
+        "Memory management",
+        "Valgrind"
+      ],
+      "intro": "A compact systems programming exercise exploring the mechanics behind memory allocation and deallocation. The focus is understanding ownership, tracking allocated blocks and cleanup.",
+      "sections": [
+        [
+          "Learning objective",
+          "Implementing allocation primitives makes normally hidden details concrete: block bookkeeping, allocation lifetime and the relationship between an address and the storage behind it."
+        ],
+        [
+          "Validation focus",
+          "Memory tools help reveal leaks and invalid accesses. Small programs that allocate, use and release multiple blocks provide a practical way to reason about allocator behaviour."
+        ],
+        [
+          "Scope",
+          "This is an educational implementation, not a production allocator. The project is intentionally small and complements broader work in C++ systems programming."
+        ]
+      ],
+      "status": "Learning project",
+      "art": "memory"
+    }
+  ],
+  "articles": [
+    {
+      "slug": "architecture-as-a-search-space",
+      "title": "What if the circuit architecture is the search space?",
+      "label": "QUANTUM COMPUTING",
+      "summary": "A short introduction to the idea behind evolutionary quantum kernel design.",
+      "body": [
+        [
+          "Beyond fixed circuits",
+          "A quantum feature map encodes a classical input into a quantum state. A kernel then measures similarity between encoded inputs. The choice of feature map shapes the similarities available to a downstream classifier."
+        ],
+        [
+          "Search over structure",
+          "An evolutionary approach treats circuit structure as a candidate solution. Mutation changes a candidate, evaluation measures its quality, and selection determines the candidates retained for future generations. The representation defines the architectural changes the search can express."
+        ],
+        [
+          "The evaluation matters",
+          "A candidate that scores well on the search objective does not automatically generalise. Separating search, model selection and final testing helps distinguish improvements to the objective from improvements on unseen examples."
+        ],
+        [
+          "An open direction",
+          "The appealing idea is to automate part of the architectural choice while keeping the search cost manageable. Circuit expressivity, evaluation cost and generalisation remain connected design questions."
+        ]
+      ]
+    },
+    {
+      "slug": "interfaces-and-error-handling",
+      "title": "An API wrapper is also an error-handling interface",
+      "label": "SOFTWARE ENGINEERING",
+      "summary": "Why the failure path deserves as much design attention as the happy path.",
+      "body": [
+        [
+          "The happy path",
+          "A concise wrapper turns an HTTP request into a readable function call. Namespaces and small functions help calling code express intent without repeating request construction."
+        ],
+        [
+          "Different failures, different meaning",
+          "A network failure, a rejected request and an unexpected response format represent different problems. Keeping their meanings visible allows application code to respond appropriately."
+        ],
+        [
+          "Useful context",
+          "A status code and a clear error message are more useful than a generic failure. Error messages should describe what went wrong without including credentials or other sensitive request data."
+        ],
+        [
+          "A small design principle",
+          "A useful interface makes successful calls readable and failed calls understandable. Both behaviours belong to the public contract."
+        ]
+      ]
+    }
+  ]
+}
