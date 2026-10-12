@@ -1,5 +1,215 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="dark" name="color-scheme"/><meta content="#24283b" name="theme-color"/><meta content="A hands-on particle simulation built in C. A grid represents the world, while SDL2 handles the window, rendering and input. The interface lets the user…" name="description"/><link href="https://williammarais.com/projects/cellular-automata.html" rel="canonical"/><meta content="William Marais" property="og:site_name"/><meta content="website" property="og:type"/><meta content="Cellular Automata · William Marais" property="og:title"/><meta content="A hands-on particle simulation built in C. A grid represents the world, while SDL2 handles the window, rendering and input. The interface lets the user…" property="og:description"/><meta content="https://williammarais.com/projects/cellular-automata.html" property="og:url"/><meta content="https://williammarais.com/og.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="en_ZA" property="og:locale"/><meta content="summary_large_image" name="twitter:card"/><meta content="Cellular Automata · William Marais" name="twitter:title"/><meta content="A hands-on particle simulation built in C. A grid represents the world, while SDL2 handles the window, rendering and input. The interface lets the user…" name="twitter:description"/><meta content="https://williammarais.com/og.png" name="twitter:image"/><title>Cellular Automata · William Marais</title><link href="../favicon.svg" rel="icon" type="image/svg+xml"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600&amp;display=swap" rel="stylesheet"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="../style.css?v=9e4de4c6" rel="stylesheet"/><script defer="" src="../app.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="../index.html">William Marais</a><nav aria-label="Main navigation"><a aria-current="page" href="../index.html">Projects</a><a href="../about.html">About</a><a href="../tutorials.html">Tutorials</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav></header><main id="main"><section class="detail-head" id="top"><a class="back" href="../index.html#projects">All projects</a><h1>Cellular Automata</h1><p class="lead">A hands-on particle simulation built in C. A grid represents the world, while SDL2 handles the window, rendering and input. The interface lets the user paint and erase materials directly.</p><div class="detail-facts"><div><small>Status</small>Personal project</div><div><small>Tools &amp; technologies</small>C / SDL2 / SDL_ttf</div></div></section><article class="article"><section><h2>An interactive sandbox</h2><p>The supplied main loop exposes sand, stone, water and glass selection through the number keys. A circular brush paints particles with the left mouse button and removes particles with the right button; the brush size is adjustable.</p></section><section><h2>A compact engine structure</h2><p>The source separates the main loop, particle handling and rendering into dedicated modules. Screen dimensions determine the particle grid, using a four-pixel scale per cell.</p></section><section><h2>Timing and controls</h2><p>The event loop accumulates elapsed time and uses a 60 Hz target interval for rendering. The target is a scheduling choice, not a measured performance guarantee. Escape closes the application.</p></section><section class="project-source"><div class="source-panel"><h2>Explore the implementation</h2><div class="source-actions"><a class="repo-button" href="https://github.com/SAED2906/CelularAutomata">View repository</a><button class="copy-button" data-copy="cellular-automata-clone" hidden="" type="button">Copy git clone</button></div><pre aria-label="Git clone command" class="clone-command" tabindex="0"><code id="cellular-automata-clone">git clone https://github.com/SAED2906/CelularAutomata.git</code></pre></div><h2>Code example</h2><div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>main.c — brush excerpt</span><span class="code-language">C</span></div><button class="copy-button" data-copy="cellular-automata-code" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="cellular-automata-code">int grid_x = mouse_x / PARTICLE_SCALE;
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="dark" name="color-scheme"/><meta content="#24283b" name="theme-color"/><meta content="A falling sand particle simulation in C with SDL2, written up step by step: the grid, material rules, update order, input and rendering." name="description"/><link href="https://williammarais.com/projects/cellular-automata.html" rel="canonical"/><meta content="William Marais" property="og:site_name"/><meta content="website" property="og:type"/><meta content="Cellular Automata · William Marais" property="og:title"/><meta content="A falling sand particle simulation in C with SDL2, written up step by step: the grid, material rules, update order, input and rendering." property="og:description"/><meta content="https://williammarais.com/projects/cellular-automata.html" property="og:url"/><meta content="https://williammarais.com/og.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="en_ZA" property="og:locale"/><meta content="summary_large_image" name="twitter:card"/><meta content="Cellular Automata · William Marais" name="twitter:title"/><meta content="A falling sand particle simulation in C with SDL2, written up step by step: the grid, material rules, update order, input and rendering." name="twitter:description"/><meta content="https://williammarais.com/og.png" name="twitter:image"/><title>Cellular Automata · William Marais</title><link href="../favicon.svg" rel="icon" type="image/svg+xml"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600&amp;display=swap" rel="stylesheet"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="../style.css?v=9e4de4c6" rel="stylesheet"/><script defer="" src="../app.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="../index.html">William Marais</a><nav aria-label="Main navigation"><a aria-current="page" href="../index.html">Projects</a><a href="../about.html">About</a><a href="../tutorials.html">Tutorials</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav></header><main id="main"><section class="detail-head" id="top"><a class="back" href="../index.html#projects">All projects</a><h1>Cellular Automata</h1><p class="lead">A falling sand simulation written in C with SDL2. This page walks through how it works, from the main loop to the grid, the material rules, update order, input and rendering, so the same ideas can be used to build a falling sand game of your own.</p><div class="detail-facts"><div><small>Status</small>Personal project</div><div><small>Tools &amp; technologies</small>C / SDL2 / SDL_ttf</div></div></section><article class="article">
+
+<section><h2>How a falling sand simulation works</h2>
+<p>The world is a grid of cells. Each cell is either empty or holds one particle made of some material. On every step each particle looks at a few neighbouring cells and applies a simple local rule. Sand falls if the cell below is free, and otherwise slides into a free cell diagonally below. Water does the same and also spreads sideways. A heavier material sinks through a lighter one by swapping places with it.</p>
+<p>No particle knows anything about the rest of the world. Piles, pools and layers appear because many particles follow the same few rules. Strictly, a cellular automaton updates every cell at once from the previous state. This project updates particles in place, one after another, which is simpler and is what most falling sand games do. The cost is some ordering effects, covered in the update order section.</p>
+</section>
+
+<section><h2>Layout and dependencies</h2>
+<p>There are three source files. <code>main.c</code> owns the window, the main loop and input. <code>particles.c</code> owns the world: the particle storage, the materials and the physics. <code>render.c</code> draws the background, the particles and the text overlay. The only dependencies are SDL2 and SDL_ttf.</p>
+<p>The overlay text uses one font file, loaded from <code>font/</code> relative to the working directory, so the program has to be started from the project root.</p>
+</section>
+
+<section><h2>Step 1: a window and a fixed-rate loop</h2>
+<p>The program asks SDL for the size of the primary display with <code>SDL_GetDisplayBounds</code> and creates a window of that size. The grid is the screen size divided by <code>PARTICLE_SCALE</code>, which is 4, so every cell is a 4 by 4 pixel square and a 1920 by 1080 display gives a 480 by 270 grid. Simulation cost follows the number of cells, not pixels, so a larger scale gives a chunkier but faster simulation.</p>
+<p>The loop accumulates elapsed milliseconds and runs one step plus one frame whenever the accumulator reaches 1000/60 ms. Input is handled on every pass of the loop, whether or not a step is due.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>main.c: main loop timing</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-loop" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-loop">Uint32 last_time = SDL_GetTicks();
+Uint32 current_time;
+float delta_time = 0;
+const float target_fps = 60.0f;
+const float time_step = 1000.0f / target_fps;
+
+while (!quit)
+{
+    current_time = SDL_GetTicks();
+    delta_time += current_time - last_time;
+    last_time = current_time;
+
+    // ... handle events, paint with the mouse ...
+
+    if (delta_time &gt;= time_step)
+    {
+        render(renderer, SCREEN_WIDTH, SCREEN_HEIGHT, current_particle_type);
+        delta_time -= time_step;
+    }
+}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>Sixty steps per second is a ceiling, not a guarantee. At most one step runs per pass, so if a frame takes longer than 16.7 ms the simulation simply runs slower instead of catching up. <code>SDL_GetTicks</code> has millisecond resolution, so individual steps land on 16 or 17 ms.</p>
+</section>
+
+<section><h2>Step 2: two structures for the world</h2>
+<p>The world is stored twice. <code>particles</code> is a packed array of every live particle, and <code>grid</code> is a two-dimensional array where <code>grid[x][y]</code> holds the index of the particle in that cell, or -1 if the cell is empty.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: world state</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-data" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-data">struct particle {
+    int type;
+    int flags;
+    int x;
+    int y;
+    int density;
+    struct colour c;
+};
+
+#define MAX_PARTICLES 1000000
+struct particle *particles = NULL;  // every live particle, packed
+int particle_count = 0;
+int **grid = NULL;                  // grid[x][y] = index into particles, or -1</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>Each structure answers a different question. The array makes the update loop visit only real particles, so empty space costs nothing. The grid answers "what is at this position?" with a single read, which is what every movement rule needs. A grid of structs would be simpler, but the update would have to scan every cell, including the empty ones.</p>
+<p>The two must always agree: <code>grid[x][y] == i</code> exactly when <code>particles[i]</code> sits at (x, y). Every function that changes a position updates both sides, and a bug in that bookkeeping shows up as ghost particles or particles that cannot move.</p>
+<p>A particle is 36 bytes, five ints plus four ints of colour, so the array reserved up front for a million particles takes 36 MB. In practice the grid is the real limit. At 480 by 270 there are 129,600 cells, and a cell can hold only one particle, so the cap is never reached. Sizing the array to width times height would be enough.</p>
+</section>
+
+<section><h2>Step 3: materials as flags and density</h2>
+<p>A material is a bitmask of behaviours plus a density and a base colour. The flags say what a particle can do, and the density decides who sinks through whom.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: flags and two materials</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-materials" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-materials">#define FLAG_FALLING   0x01  // Can fall downward
+#define FLAG_LIQUID    0x02  // Can flow sideways
+#define FLAG_SOLID     0x04  // Can't be moved through
+#define FLAG_MOVABLE   0x08  // Can be moved by other particles
+#define FLAG_OPAQUE    0x10
+
+// in add_particle(), once the cell is known to be free:
+case TYPE_SAND:
+    new_particle.flags = FLAG_FALLING | FLAG_SOLID | FLAG_MOVABLE;
+    new_particle.density = 3;
+    new_particle.c.r = 194 + (rand() % 20);
+    new_particle.c.g = 178 + (rand() % 20);
+    new_particle.c.b = 128 + (rand() % 20);
+    new_particle.c.a = 255;
+    break;
+
+case TYPE_WATER:
+    new_particle.flags = FLAG_FALLING | FLAG_LIQUID | FLAG_MOVABLE | FLAG_OPAQUE;
+    new_particle.density = 1;
+    new_particle.c.r = 5 + (rand() % 15);
+    new_particle.c.g = 100 + (rand() % 55);
+    new_particle.c.b = 180 + (rand() % 60);
+    new_particle.c.a = 150 + (rand() % 60);  // semi-transparent
+    break;</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>There are four materials. Sand is falling and movable with density 3. Stone has density 5 and no <code>FLAG_MOVABLE</code>, so the update loop skips it and it never moves. Water is falling, liquid and movable with density 1, in a translucent blue. Glass is static like stone, in a translucent green-blue. Each particle gets its own random colour offset, which is what gives piles of sand their grain.</p>
+<p>Only <code>FLAG_FALLING</code>, <code>FLAG_LIQUID</code> and <code>FLAG_MOVABLE</code> are read by the physics. <code>FLAG_SOLID</code> is set but not used yet. <code>FLAG_OPAQUE</code> is read by the renderer and in practice means "draw in the blended pass", so a name such as <code>FLAG_TRANSLUCENT</code> would describe it better. <code>add_particle</code> returns -1 when the position is outside the grid, the cell is occupied or the cap is reached, and the brush relies on that to ignore cells it cannot fill.</p>
+</section>
+
+<section><h2>Step 4: moving and swapping</h2>
+<p>Three small functions are all the physics needs. <code>move_particle</code> clears the old cell, fills the new one and updates the particle's coordinates. <code>swap_particles</code> exchanges the positions of two particles and both grid entries. <code>can_displace</code> is true when the mover is strictly denser than the particle in the way.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: movement primitives</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-moving" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-moving">void move_particle(int index, int new_x, int new_y) {
+    int old_x = particles[index].x;
+    int old_y = particles[index].y;
+
+    grid[old_x][old_y] = -1;
+    grid[new_x][new_y] = index;
+
+    particles[index].x = new_x;
+    particles[index].y = new_y;
+}
+
+void swap_particles(int index1, int index2) {
+    int x1 = particles[index1].x, y1 = particles[index1].y;
+    int x2 = particles[index2].x, y2 = particles[index2].y;
+
+    particles[index1].x = x2;  particles[index1].y = y2;
+    particles[index2].x = x1;  particles[index2].y = y1;
+
+    grid[x1][y1] = index2;
+    grid[x2][y2] = index1;
+}
+
+bool can_displace(int index1, int index2) {
+    return particles[index1].density &gt; particles[index2].density;
+}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>The real functions also check that the particle indices are valid, which this excerpt leaves out. Positions are not checked, because callers test bounds first. <code>is_empty(x, y)</code> returns false for positions outside the grid, which makes the edges of the world behave as walls with no extra code.</p>
+</section>
+
+<section><h2>Step 5: the update rules</h2>
+<p>For every movable, falling particle, the update tries a short list of moves in order and stops at the first one that works. A particle moves at most once per step, which is what the <code>continue</code> statements enforce.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: update_particles, condensed</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-rule" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-rule">if (p-&gt;flags &amp; FLAG_FALLING) {
+    int x = p-&gt;x;
+    int y = p-&gt;y;
+
+    // 1. straight down, if free
+    if (is_empty(x, y+1)) {
+        move_particle(i, x, y+1);
+        continue;
+    // 2. otherwise swap with whatever is below, if it is lighter
+    } else if (is_valid_position(x, y+1)) {
+        int below_idx = grid[x][y+1];
+        if (below_idx != -1 &amp;&amp; can_displace(i, below_idx)) {
+            swap_particles(i, below_idx);
+            continue;
+        }
+    }
+
+    // 3. diagonally down, in a random order, free or lighter
+    bool try_left_first = (rand() % 2 == 0);
+    // ... same two checks for (x-1, y+1) and (x+1, y+1) ...
+
+    // 4. liquids only: sideways, then a few extras for water
+    if (p-&gt;flags &amp; FLAG_LIQUID) {
+        // ... (x-1, y) and (x+1, y) if empty ...
+    }
+}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>The order of the list produces the behaviour. Moving straight down first gives gravity. Trying diagonals second gives sand its pile shape: with only diagonal slides available, a pile settles into a slope of about 45 degrees. Choosing left or right first at random stops the pile from leaning to one side.</p>
+<p>The density swap is what makes materials layer correctly. When sand lands on water, the cell below is not empty, but sand has density 3 and water has density 1, so they swap: the sand goes down and the water pops up into the sand's old cell. Repeated every step, the sand sinks through the pool to the floor. In a headless test, a block of sand dropped into a pool ended up on the floor under the water with none left resting on top.</p>
+<p>Water adds a few things on top. After the diagonals it slides sideways into a free neighbour, which is what lets a pool spread out and level. When it is boxed in on both sides and below, it has a one in fifty chance per step of moving up one cell, a cheap stand-in for pressure. Each water particle also has a one in fifteen chance per step of re-rolling its alpha and blue values, which makes the surface shimmer. The code includes a two-cell sideways hop meant to level pools faster, but as written it never runs, as the rough edges section explains.</p>
+</section>
+
+<section><h2>A shorter version of the same rules</h2>
+<p>The real file repeats the free-or-lighter check for every direction, which is why it runs long. All of those checks reduce to one helper that tries a move and reports whether it worked. The version below keeps the core rules and leaves out the water extras. It was compiled and run in a headless test with the same data structures, and sand still piles and sinks through water. For the current materials, allowing a swap on the sideways moves changes nothing, because water is the lightest material and nothing can displace it.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: compact update</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-compact" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-compact">// Try to move particle i by (dx, dy). Succeeds if the target is empty,
+// or holds something lighter that i can displace.
+static bool try_move(int i, int dx, int dy)
+{
+    int x = particles[i].x + dx;
+    int y = particles[i].y + dy;
+
+    if (!is_valid_position(x, y)) return false;
+
+    int other = grid[x][y];
+    if (other == -1) {
+        move_particle(i, x, y);
+        return true;
+    }
+    if (can_displace(i, other)) {
+        swap_particles(i, other);
+        return true;
+    }
+    return false;
+}
+
+static bool step_sand(int i)
+{
+    int dir = (rand() &amp; 1) ? -1 : 1;
+    return try_move(i, 0, 1)
+        || try_move(i, dir, 1)
+        || try_move(i, -dir, 1);
+}
+
+static bool step_water(int i)
+{
+    if (step_sand(i)) return true;       // liquids fall like sand
+    int dir = (rand() &amp; 1) ? -1 : 1;
+    return try_move(i, dir, 0) || try_move(i, -dir, 0);
+}
+
+void update_particles(void)
+{
+    for (int i = 0; i &lt; particle_count; i++) {
+        int f = particles[i].flags;
+        if (!(f &amp; FLAG_MOVABLE) || !(f &amp; FLAG_FALLING)) continue;
+
+        if (f &amp; FLAG_LIQUID) step_water(i);
+        else                 step_sand(i);
+    }
+}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>Adding a material then takes a few lines: a type constant, a case in <code>add_particle</code> with its flags, density and colour, a key in <code>main.c</code> and a label in the <code>render</code> switch. A gas is the same idea with the direction flipped, trying up instead of down, so it needs a rising helper but no new machinery.</p>
+</section>
+
+<section><h2>Update order</h2>
+<p>The update loop walks the <code>particles</code> array by index. This avoids a classic problem of grid-based sand, where scanning cells finds a particle that already moved down and moves it again, which is why those versions scan from the bottom row upward. Here each particle is visited exactly once per step, with no "already moved" flag.</p>
+<p>The price is that the order is creation order, shuffled further whenever a particle is removed. That order leaves a visible mark. Take two grains stacked in free space. If the lower grain is updated first, it falls and the upper one follows straight down. If the upper grain is updated first, it sees the lower grain still beneath it, finds the straight-down move blocked, and slips diagonally instead. In the headless test the upper grain ended up one column to the side after a single step. The effect is that falling streams of sand spread out more than they would if every particle moved at once.</p>
+<p>Options for fixing it are to shuffle or alternate the processing order each step, to scan the grid from the bottom up, or to double-buffer the world and write results into a second grid. A displaced particle can also move twice in one step if its index is higher than the particle that displaced it.</p>
+</section>
+
+<section><h2>Step 6: input and the brush</h2>
+<p>The number keys 1 to 4 pick sand, stone, water and glass, plus and minus change the brush size between 1 and 10, the left mouse button paints and the right button erases. The brush walks a square of cells around the cursor and skips any cell outside a circle. Because the radius is the brush size divided by two in integer arithmetic, a size of 3 has radius 1 and paints a plus shape of up to five cells. Painting also skips one cell in three at random, which makes a spray instead of a solid blob.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>main.c: brush</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-brush" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-brush">int grid_x = mouse_x / PARTICLE_SCALE;
 int grid_y = mouse_y / PARTICLE_SCALE;
 
 for (int i = -brush_size/2; i &lt;= brush_size/2; i++) {
@@ -12,4 +222,65 @@ for (int i = -brush_size/2; i &lt;= brush_size/2; i++) {
             add_particle(grid_x + i, grid_y + j, current_particle_type);
         }
     }
-}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p></section></article><a class="next-project" href="c-game-engine.html"><small>Next project</small><span>C Game Engine</span></a></main><footer><span>© 2026 William Marais</span></footer></body></html>
+}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>Mouse pixels become grid cells by dividing by the scale. Erasing uses a trick that keeps the array packed: <code>remove_particle</code> copies the last particle into the freed slot, repoints that particle's grid cell at its new index, and decrements the count. Removal is constant time, at the cost of reordering the array.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: remove_particle</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-remove" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-remove">int remove_particle(int x, int y)
+{
+    if (!is_valid_position(x, y) || grid[x][y] == -1) {
+        return -1;
+    }
+
+    int idx = grid[x][y];
+    grid[x][y] = -1;
+
+    if (idx &lt; particle_count - 1) {
+        particles[idx] = particles[particle_count - 1];
+        grid[particles[idx].x][particles[idx].y] = idx;
+    }
+
+    particle_count--;
+    return particle_count;
+}</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+</section>
+
+<section><h2>Step 7: rendering</h2>
+<p>Each frame, <code>render</code> clears the screen and fills the background with a vertical gradient, drawn as one full-width one-pixel rectangle per row. The red channel rises from 0 to 128 down the screen and the blue channel from 105 to 255. It then runs the physics step, draws the particles, and writes the current material name in the corner.</p>
+<p>Every particle is drawn as a filled rectangle of <code>scale</code> by <code>scale</code> pixels at its grid position multiplied by the scale. Drawing happens in two passes. The first draws sand and stone with blending off. The second turns on alpha blending and draws the particles flagged as translucent, water and glass, so they tint whatever is behind them, both the gradient and the sand. Drawing translucent material last is what makes that work.</p>
+<div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>particles.c: render_particles, condensed</span><span class="code-language">C</span></div><button class="copy-button" data-copy="ca-code-render" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="ca-code-render">// pass 1: solid particles
+for (int i = 0; i &lt; particle_count; i++) {
+    struct particle *p = &amp;particles[i];
+    if (p-&gt;flags &amp; FLAG_OPAQUE) continue;
+
+    SDL_SetRenderDrawColor(renderer, p-&gt;c.r, p-&gt;c.g, p-&gt;c.b, p-&gt;c.a);
+    SDL_Rect rect = {p-&gt;x * scale, p-&gt;y * scale, scale, scale};
+    SDL_RenderFillRect(renderer, &amp;rect);
+}
+
+// pass 2: translucent particles, with blending
+SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_BLEND);
+for (int i = 0; i &lt; particle_count; i++) {
+    struct particle *p = &amp;particles[i];
+    if (!(p-&gt;flags &amp; FLAG_OPAQUE)) continue;
+
+    SDL_SetRenderDrawColor(renderer, p-&gt;c.r, p-&gt;c.g, p-&gt;c.b, p-&gt;c.a);
+    SDL_Rect rect = {p-&gt;x * scale, p-&gt;y * scale, scale, scale};
+    SDL_RenderFillRect(renderer, &amp;rect);
+}
+SDL_SetRenderDrawBlendMode(renderer, SDL_BLENDMODE_NONE);</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p>
+<p>Text is drawn by a helper that opens the TTF font, renders the string to a surface, uploads it as a texture, copies it to the screen and frees everything again. It runs twice per frame, once for the material label and once for the particle counter.</p>
+</section>
+
+<section><h2>Rough edges and what to change first</h2>
+<p>This is a working prototype, and several parts are held together by shortcuts. They are listed here in the order they are worth fixing.</p>
+<p>Painting runs once per pass of the main loop, not once per simulation step, and the loop has no delay, so it spins as fast as the CPU allows. The rate at which sand pours out therefore depends on the machine instead of the 60 Hz step, and one core is kept fully busy. Moving the painting into the fixed-step block and adding either <code>SDL_Delay(1)</code> or <code>SDL_RENDERER_PRESENTVSYNC</code> fixes both.</p>
+<p>The physics step is called from inside <code>render</code>. It works because the render call only happens at the fixed rate, but update and draw should be separate calls in the loop, which also makes it possible to run several steps per frame or to pause.</p>
+<p>The font is opened from disk on every text call, twice per frame. Opening it once at start-up and passing the handle around removes that cost and the relative-path dependency from the draw path.</p>
+<p>Each particle is its own draw call, which becomes the bottleneck as piles grow. A faster approach is to write particle colours into a pixel buffer the size of the grid, upload it to a streaming texture and draw that texture once, scaled up. The gradient could be rendered once into a texture as well, instead of redrawn row by row.</p>
+<p>Particles that are resting still run their checks every step. Skipping particles that did not move last step and whose neighbours did not change is the usual way to keep large static piles cheap.</p>
+<p>The two-cell sideways hop for water never fires. Its condition requires the adjacent cell to be empty, but the single-cell slide just above it already moves the particle in exactly that case, so the hop is unreachable. Putting the hop before the single-cell slide would make it work, at the cost of water spreading faster than the rest of the rules suggest.</p>
+<p>The starting terrain uses fixed numbers: a floor from row 230 down, and walls from row 210 that are three cells wide on the left and four on the right. At scale 4, the floor only appears on displays taller than about 920 pixels, because below that the grid has fewer than 230 rows. Deriving all of it from the grid height fixes both problems. <code>PARTICLE_SCALE</code> is also defined separately in <code>main.c</code> and <code>render.c</code> and has to be kept in sync by hand, so it belongs in a shared header.</p>
+</section>
+
+<section class="project-source"><div class="source-panel"><h2>Explore the implementation</h2><div class="source-actions"><a class="repo-button" href="https://github.com/SAED2906/CelularAutomata">View repository</a><button class="copy-button" data-copy="cellular-automata-clone" hidden="" type="button">Copy git clone</button></div><pre aria-label="Git clone command" class="clone-command" tabindex="0"><code id="cellular-automata-clone">git clone https://github.com/SAED2906/CelularAutomata.git</code></pre></div></section>
+
+</article><a class="next-project" href="c-game-engine.html"><small>Next project</small><span>C Game Engine</span></a></main><footer><span>© 2026 William Marais</span></footer></body></html>
