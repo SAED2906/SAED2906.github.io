@@ -1,7 +1,203 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width,initial-scale=1" name="viewport"/><meta content="dark" name="color-scheme"/><meta content="#24283b" name="theme-color"/><meta content="QAS separates the mechanics of evolutionary search from the problem being solved. A generic core evolves candidate representations, while quantum-specific…" name="description"/><link href="https://williammarais.com/projects/qas.html" rel="canonical"/><meta content="William Marais" property="og:site_name"/><meta content="website" property="og:type"/><meta content="QAS — Quantum Architecture Search · William Marais" property="og:title"/><meta content="QAS separates the mechanics of evolutionary search from the problem being solved. A generic core evolves candidate representations, while quantum-specific…" property="og:description"/><meta content="https://williammarais.com/projects/qas.html" property="og:url"/><meta content="https://williammarais.com/og.png" property="og:image"/><meta content="1200" property="og:image:width"/><meta content="630" property="og:image:height"/><meta content="en_ZA" property="og:locale"/><meta content="summary_large_image" name="twitter:card"/><meta content="QAS — Quantum Architecture Search · William Marais" name="twitter:title"/><meta content="QAS separates the mechanics of evolutionary search from the problem being solved. A generic core evolves candidate representations, while quantum-specific…" name="twitter:description"/><meta content="https://williammarais.com/og.png" name="twitter:image"/><title>QAS — Quantum Architecture Search · William Marais</title><link href="../favicon.svg" rel="icon" type="image/svg+xml"/><link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600&amp;display=swap" rel="stylesheet"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link href="../style.css?v=9e4de4c6" rel="stylesheet"/><script defer="" src="../app.js"></script></head><body><a class="skip" href="#main">Skip to content</a><header><a class="brand" href="../index.html">William Marais</a><nav aria-label="Main navigation"><a aria-current="page" href="../index.html">Projects</a><a href="../about.html">About</a><a href="../tutorials.html">Tutorials</a><a href="../blog.html">Blog</a><a href="../contact.html">Contact</a></nav></header><main id="main"><section class="detail-head" id="top"><a class="back" href="../index.html#projects">All projects</a><h1>QAS — Quantum Architecture Search</h1><p class="lead">QAS separates the mechanics of evolutionary search from the problem being solved. A generic core evolves candidate representations, while quantum-specific modules build on that core for circuit design, kernel methods, VQE and variational classifiers.</p><div class="detail-facts"><div><small>Status</small>Research framework</div><div><small>Tools &amp; technologies</small>Python / HierarQcal / PennyLane</div></div></section><article class="article"><section><h2>A reusable search engine</h2><p>The core defines four contracts: Genome, Score, CostFunction and EvolutionarySearch. Candidate representations implement mutation, identity and serialisation; the fitness function supplies the problem-specific evaluation. Selection, elitism, plateau recovery and checkpointing stay inside the search engine.</p></section><section><h2>Quantum applications without a quantum-only core</h2><p>The contributed modules use HierarQcal motifs and layered circuit genomes to express circuits across qubit counts. The tutorial also demonstrates symbolic regression without quantum dependencies, showing how the same search machinery applies to a different domain.</p></section><section><h2>Engineering for experimentation</h2><p>The framework includes parallel evaluation through configurable job counts, metrics and artifacts, search results, checkpoints and tutorial notebooks. Quantum dependencies are opt-in, keeping the generic core separate from its application libraries.</p></section><section class="project-source"><div class="source-panel"><div class="eyebrow">Private repository</div><h2>Explore the implementation</h2><p class="source-pending">Source access is restricted to authorised collaborators. The repository link and clone command require access.</p><div class="source-actions"><a class="repo-button" href="https://github.com/SAED2906/QAS">View repository</a><button class="copy-button" data-copy="qas-clone" hidden="" type="button">Copy git clone</button></div><pre aria-label="Git clone command" class="clone-command" tabindex="0"><code id="qas-clone">git clone https://github.com/SAED2906/QAS.git</code></pre></div><h2>Code example</h2><div class="code-frame"><div class="code-toolbar"><div class="code-meta"><span>fitness-contract.py</span><span class="code-language">Python</span></div><button class="copy-button" data-copy="qas-code" hidden="" type="button">Copy code</button></div><pre aria-label="Code example" class="code-content" tabindex="0"><code id="qas-code">class MyCost(CostFunction):
-    def evaluate(self, genome: Genome) -&gt; Score:
-        ...  # Supply the problem-specific evaluation.
+<html lang="en">
 
-# EvolutionarySearch handles the shared search mechanics:
-# selection, mutation, elitism and checkpointing.</code></pre></div><p aria-live="polite" class="copy-status" role="status"></p></section></article><a class="next-project" href="worldmachina.html"><small>Next project</small><span>WorldMachina</span></a></main><footer><span>© 2026 William Marais</span></footer></body></html>
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width,initial-scale=1" name="viewport" />
+    <meta content="dark" name="color-scheme" />
+    <meta content="#24283b" name="theme-color" />
+    <meta
+        content="An evolutionary search engine for quantum circuit architectures. The core knows nothing about the problem, so kernels, VQE and classifiers share one engine."
+        name="description" />
+    <link href="https://williammarais.com/projects/qas.html" rel="canonical" />
+    <meta content="William Marais" property="og:site_name" />
+    <meta content="website" property="og:type" />
+    <meta content="QAS — Quantum Architecture Search · William Marais" property="og:title" />
+    <meta
+        content="An evolutionary search engine for quantum circuit architectures. The core knows nothing about the problem, so kernels, VQE and classifiers share one engine."
+        property="og:description" />
+    <meta content="https://williammarais.com/projects/qas.html" property="og:url" />
+    <meta content="https://williammarais.com/og.png" property="og:image" />
+    <meta content="1200" property="og:image:width" />
+    <meta content="630" property="og:image:height" />
+    <meta content="en_ZA" property="og:locale" />
+    <meta content="summary_large_image" name="twitter:card" />
+    <meta content="QAS — Quantum Architecture Search · William Marais" name="twitter:title" />
+    <meta
+        content="An evolutionary search engine for quantum circuit architectures. The core knows nothing about the problem, so kernels, VQE and classifiers share one engine."
+        name="twitter:description" />
+    <meta content="https://williammarais.com/og.png" name="twitter:image" />
+    <title>QAS — Quantum Architecture Search · William Marais</title>
+    <link href="../favicon.svg" rel="icon" type="image/svg+xml" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400&amp;family=Literata:ital,opsz,wght@0,7..72,400..600;1,7..72,400..600&amp;display=swap"
+        rel="stylesheet" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link href="../style.css?v=9e4de4c6" rel="stylesheet" />
+    <script defer="" src="../app.js"></script>
+</head>
+
+<body><a class="skip" href="#main">Skip to content</a>
+    <header><a class="brand" href="../index.html">William Marais</a>
+        <nav aria-label="Main navigation"><a aria-current="page" href="../index.html">Projects</a><a
+                href="../about.html">About</a><a href="../tutorials.html">Tutorials</a><a href="../blog.html">Blog</a><a
+                href="../contact.html">Contact</a></nav>
+    </header>
+    <main id="main">
+        <section class="detail-head" id="top"><a class="back" href="../index.html#projects">All projects</a>
+            <h1>QAS — Quantum Architecture Search</h1>
+            <p class="lead">QAS is a Python framework for evolutionary architecture search, built mainly for quantum
+                circuits. The search engine is separate from the problem it solves, so the same unchanged engine runs
+                quantum kernel search, VQE and variational classifiers, and also problems with no quantum content at
+                all.</p>
+            <div class="detail-facts">
+                <div><small>Status</small>Research framework, in active development</div>
+                <div><small>Tools &amp; technologies</small>Python / NumPy / HierarQcal / PennyLane</div>
+            </div>
+        </section>
+        <article class="article">
+            <section>
+                <h2>Why the engine is separate</h2>
+                <p>Most architecture search tools for quantum circuits are written around one objective, usually VQE.
+                    Asking a different question means rewriting the search loop: selection, mutation, diversity
+                    control, checkpointing. QAS splits those apart. The engine decides how candidates compete and
+                    survive. A small problem definition says what a candidate is and how good it is.</p>
+            </section>
+            <section>
+                <h2>A core with four contracts</h2>
+                <p>The core is deliberately small. It defines Genome, Score, CostFunction and EvolutionarySearch. A
+                    Genome describes how a candidate is sampled, mutated, compared and serialised. A CostFunction has
+                    one required method: it takes a genome and returns a Score, which holds a fitness and any metrics
+                    worth recording.</p>
+                <p>The core imports NumPy and joblib and nothing else. It has no way of knowing whether it is
+                    optimising a circuit, a vector or an expression, and quantum dependencies are only pulled in by the
+                    optional modules built on top of it.</p>
+                <div class="code-frame">
+                    <div class="code-toolbar">
+                        <div class="code-meta"><span>fitness-contract.py</span><span class="code-language">Python</span>
+                        </div><button class="copy-button" data-copy="qas-code-contract" hidden="" type="button">Copy
+                            code</button>
+                    </div>
+                    <pre aria-label="Code example" class="code-content" tabindex="0"><code id="qas-code-contract">class MyCost(CostFunction):
+    def evaluate(self, genome: Genome) -&gt; Score:
+        ...  # problem-specific evaluation
+        return Score(fitness=value, metrics={"my_metric": value})</code></pre>
+                </div>
+                <p aria-live="polite" class="copy-status" role="status"></p>
+            </section>
+            <section>
+                <h2>One search, different problems</h2>
+                <p>Changing the problem changes the cost function and, where the data differs, the encoding names. The
+                    search itself stays as it is. The block below drives a kernel search or a ground-state search
+                    depending on which cost function is passed in.</p>
+                <div class="code-frame">
+                    <div class="code-toolbar">
+                        <div class="code-meta"><span>same-engine.py</span><span class="code-language">Python</span>
+                        </div><button class="copy-button" data-copy="qas-code-engine" hidden="" type="button">Copy
+                            code</button>
+                    </div>
+                    <pre aria-label="Code example" class="code-content" tabindex="0"><code id="qas-code-engine"># Quantum kernel search: cross-validated SVM accuracy
+cost_fn = SparseKFoldCVCost(X, y, encoding_funcs, n_folds=3, sparse_factor=0.3)
+
+# Variational search: energy of a Hamiltonian
+cost_fn = GroundStateEnergyCost(hamiltonian)
+
+search = qas.EvolutionarySearch(
+    genome_cls=LayeredCircuitGenome,
+    cost_fn=cost_fn,
+    space_kwargs={
+        "library": library,
+        "n_qubits": 8,
+        "enc_names": enc_names,  # [None] when there is no data
+        "min_layers": 3,
+        "max_layers": 12,
+    },
+    pop_size=25,
+    n_generations=100,
+    n_jobs=2,
+    live_port=8765,
+)
+result = search.run()</code></pre>
+                </div>
+                <p aria-live="polite" class="copy-status" role="status"></p>
+            </section>
+            <section>
+                <h2>Circuits as genomes</h2>
+                <p>The circuit genome in the contributed modules is built on HierarQcal. A candidate is a stack of
+                    layers. Each layer is a motif (cycle, pivot, mask or unmask) with its own parameters, and most
+                    carry a gate. Because the patterns are relative rather than tied to particular wires, a
+                    circuit found at one qubit count can be rebuilt at another.</p>
+                <p>Each parametrised gate carries either a free trainable angle or a data-encoding function, chosen per
+                    gate. One genome type therefore covers both kernel circuits, where gates encode data, and
+                    variational circuits, where they hold trainable parameters. Kernel circuits are built as a feature
+                    map followed by its adjoint, so the genome can also reverse itself exactly, including the order of
+                    gates inside a layer that sweeps several qubit pairs.</p>
+            </section>
+            <section>
+                <h2>What the search does</h2>
+                <p>Each generation, candidates are mutated and evaluated in parallel with joblib. Selection mixes
+                    fitness with structural distance so the population does not collapse onto a single design, elites
+                    are carried over, and when progress stalls a plateau step reinitialises most of the population.
+                    Runs write checkpoints and per-generation logs to disk.</p>
+                <p>With a live port set, the search also streams events over TCP as newline-delimited JSON: fitness,
+                    diversity, plateaus, and the genome behind each new best. Any client can follow a run, and a small
+                    monitor script plots it without knowing what the problem is.</p>
+            </section>
+            <section>
+                <h2>Problems included</h2>
+                <p>Quantum kernel search scores a circuit by the cross-validated accuracy of an SVM on its kernel
+                    matrix, or by kernel-target alignment, with sparse variants that evaluate only a fraction of the
+                    kernel entries. This is where the framework started. It grew out of MSc research on evolutionary
+                    quantum kernel search at Stellenbosch University and has been run on the CHPC Lengau cluster.</p>
+                <p>VQE scores a circuit by the energy it reaches on a Hamiltonian, with the circuit structure itself
+                    being searched rather than a fixed ansatz. Transverse-field Ising and MaxCut Hamiltonians are
+                    included, along with a helper that turns an arbitrary classical cost function over bitstrings into
+                    a diagonal Hamiltonian, so a new combinatorial problem needs a function rather than a new
+                    module.</p>
+                <p>The variational classifier uses the sign of a Pauli-Z expectation as the prediction, with no SVM
+                    anywhere, and reuses the VQE evaluation code once per data point. Outside quantum computing, the
+                    tutorial evolves plain vectors and symbolic expressions with the same engine, which is the quickest
+                    way to see that the core makes no circuit-specific assumptions.</p>
+            </section>
+            <section>
+                <h2>An example run</h2>
+                <p>As a check on the VQE module, a search over 8-qubit circuits for the ground state of a periodic
+                    transverse-field Ising model (J = h = 1) reached an energy of −9.9991. The exact value is
+                    −10.2517. The best circuit contained no entangling gates, and for this Hamiltonian the lowest
+                    energy any unentangled product state can reach is exactly −10.0000. The search came within 0.001
+                    of the best that is possible without entanglement.</p>
+                <p>The remaining 0.25 is correlation energy, which needs entangling gates. Why entangled candidates
+                    did not survive is not settled. A likely reason is that one entangling gate makes an otherwise
+                    well-tuned circuit worse before the rest of it can adapt, so it loses selection first. Keeping such
+                    lineages alive long enough to pay off is the main open question for the selection step.</p>
+            </section>
+            <section>
+                <h2>Current limits and next steps</h2>
+                <p>A run cannot yet be resumed from a checkpoint. Restoring the population, scores and random state
+                    is the next engine feature. The default structural distance is binary, so it cannot see features
+                    such as how many layers are entangling, which is the feature the example above depends on.
+                    Selection is single-objective, although a Pareto helper already exists. The live feed is plain TCP,
+                    and a WebSocket bridge for browser dashboards is planned. Packaging, documentation and test
+                    coverage for a public release come alongside these.</p>
+            </section>
+            <section class="project-source">
+                <div class="source-panel">
+                    <div class="eyebrow">Private repository</div>
+                    <h2>Explore the implementation</h2>
+                    <p class="source-pending">Source access is restricted to authorised collaborators. The repository
+                        link and clone command require access.</p>
+                    <div class="source-actions"><a class="repo-button" href="https://github.com/SAED2906/QAS">View
+                            repository</a><button class="copy-button" data-copy="qas-clone" hidden="" type="button">Copy
+                            git clone</button></div>
+                    <pre aria-label="Git clone command" class="clone-command"
+                        tabindex="0"><code id="qas-clone">git clone https://github.com/SAED2906/QAS.git</code></pre>
+                </div>
+            </section>
+        </article><a class="next-project" href="worldmachina.html"><small>Next
+                project</small><span>WorldMachina</span></a>
+    </main>
+    <footer><span>© 2026 William Marais</span></footer>
+</body>
+
+</html>
